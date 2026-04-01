@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Steampunk Stardate Calculator · Chronometric Guild Edition</title>
+  <style>
+    /* === Peregrine Theme Root Variables === */
+    :root {
+      --bg: #080809;
+      --bg-panel: #151317;
+      --bg-panel-alt: #1c181f;
+      --text-main: #f5ecd8;
+      --text-muted: #b7aa92;
+      --accent-brass: #c89b3c;
+      --accent-brass-soft: #a4762d;
+      --accent-red: #c4493d;
+      --accent-amber: #e0a63e;
+      --accent-green: #3ba464;
+      --border-soft: rgba(255, 245, 214, 0.15);
+      --shadow-soft: 0 0 20px rgba(0, 0, 0, 0.8);
+      --body-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --display-font: "Cormorant Garamond", "Cinzel", "Georgia", serif;
+      --mono: "Fira Mono", "Consolas", monospace;
+    }
+
+   body {
+  margin: 0;
+  font-family: var(--body-font);
+  background: radial-gradient(circle at top left, #261918 0, #080809 55%) fixed;
+  color: var(--text-main);
+  line-height: 1.6;
+  padding-top: 2rem;   /* NEW: adds space above the hero */
+  padding-bottom: 4rem;
+}
+
+    /* === Hero Header === */
+    .hero {
+      margin: 0 auto 2rem;
+      max-width: 1200px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      background: radial-gradient(circle at top, #2b2227 0, #050307 70%);
+      position: relative;
+    }
+
+    .hero-media {
+      position: relative;
+      width: 100%;
+    }
+
+    .hero-media::before {
+      content: "";
+      display: block;
+      padding-top: 50%;
+    }
+
+    .hero-media img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: auto 0 0 0;
+      padding: 1rem 1.5rem;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.4), transparent);
+    }
+
+    .hero-kicker {
+      font-size: 0.8rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent-brass-soft);
+    }
+
+    .hero-title {
+      font-family: var(--display-font);
+      font-size: 1.8rem;
+      text-transform: uppercase;
+      color: var(--accent-brass);
+    }
+
+    .hero-subtitle {
+      color: var(--text-muted);
+      max-width: 480px;
+      font-size: 0.9rem;
+    }
+
+    /* === Layout === */
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    .panel {
+      background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(0,0,0,0.8));
+      border-radius: 12px;
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      padding: 2rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    h2, h3 {
+      font-family: var(--display-font);
+      color: var(--accent-brass);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    p, label, td, th {
+      font-size: 0.95rem;
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .tab-btn {
+      border-radius: 8px;
+      border: 1px solid var(--accent-brass-soft);
+      background: radial-gradient(circle at top, #3e2b1a 0, #171011 60%);
+      color: var(--text-main);
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      font-family: var(--display-font);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn.active, .tab-btn:hover {
+      background: radial-gradient(circle at top, #c89b3c 0, #a4762d 60%);
+      color: #080809;
+      font-weight: bold;
+      box-shadow: 0 0 12px rgba(200,155,60,0.6);
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* === Stardate Display === */
+    .stardate-display {
+      background: radial-gradient(circle at top, #2b2227 0, #0a0509 70%);
+      border: 1px solid var(--accent-brass-soft);
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .stardate-label { color: var(--text-muted); font-size: 0.9rem; }
+
+    .stardate-value {
+      font-family: var(--mono);
+      font-size: 2.4rem;
+      color: var(--accent-amber);
+      text-shadow: 0 0 10px rgba(224,166,62,0.6);
+    }
+
+    .btn {
+      border-radius: 6px;
+      border: 1px solid var(--accent-brass-soft);
+      background: radial-gradient(circle at top, #3e2b1a 0, #171011 60%);
+      color: var(--text-main);
+      padding: 0.6rem 1.2rem;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: all 0.2s ease;
+    }
+
+    .btn:hover {
+      background: radial-gradient(circle at top, #c89b3c 0, #a4762d 60%);
+      color: #080809;
+      box-shadow: 0 0 10px rgba(200,155,60,0.8);
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.6rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-soft);
+      background: rgba(0,0,0,0.4);
+      color: var(--text-main);
+      font-family: var(--mono);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    th, td {
+      border: 1px solid var(--border-soft);
+      padding: 0.6rem;
+      color: var(--text-main);
+    }
+
+    th {
+      background: rgba(200,155,60,0.1);
+      text-transform: uppercase;
+      font-size: 0.8rem;
+    }
+
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: radial-gradient(circle at top, #c89b3c 0, #a4762d 60%);
+      color: #080809;
+      padding: 0.75rem 1.2rem;
+      border-radius: 8px;
+      font-weight: bold;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      box-shadow: 0 0 12px rgba(200,155,60,0.5);
+    }
+    .notification.show { opacity: 1; }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-media">
+      <img src="images/headers/01_sp_stardate_calc_header_1200x600.png" alt="Chronometric Guild Observatory, brass gears and starlit instruments">
+    </div>
+    <div class="hero-overlay">
+      <div class="hero-kicker">Chronometric Guild Reference System</div>
+      <div class="hero-title">Steampunk Stardate Calculator</div>
+      <div class="hero-subtitle">For writers, navigators, and time‑keepers of the Aether Age.</div>
+    </div>
+  </header>
+
+  <div class="page">
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('generator')">Generator</button>
+      <button class="tab-btn" onclick="switchTab('setup')">Setup</button>
+      <button class="tab-btn" onclick="switchTab('reference')">Instructions</button>
+    </div>
+
+    <div id="generator" class="tab-content active panel">
+      <h2>Generate Your Stardate</h2>
+      <div class="stardate-display">
+        <div class="stardate-label">Current Stardate</div>
+        <div class="stardate-value" id="currentStardate">1748.5</div>
+      </div>
+      <div class="panel" style="margin-top:1rem;">
+        <label>Progression Number</label>
+        <input type="number" id="progressionInput" value="1748" onchange="updateStardate()">
+        <label>Time of Day (0-9)</label>
+        <input type="number" id="decimalInput" value="0" min="0" max="9" onchange="updateStardate()">
+      </div>
+      <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
+        <button class="btn" onclick="incrementStardate()">Next Day</button>
+        <button class="btn" onclick="incrementTime()">Advance Time</button>
+        <button class="btn" onclick="copyStardate()">Copy Stardate</button>
+      </div>
+    </div>
+
+    <div id="setup" class="tab-content panel">
+      <h2>Setup</h2>
+      <label>Format Name</label>
+      <input type="text" id="customFormatInput" value="Steam-Date" onchange="updateFormat()">
+      <label>Base Year</label>
+      <input type="number" id="baseYearInput" value="1748" onchange="updateBaseYear()">
+      <button class="btn" onclick="applySetup()">Apply Settings</button>
+    </div>
+
+    <div id="reference" class="tab-content panel">
+      <h2>Reference Table</h2>
+      <table>
+        <thead>
+          <tr><th>Stardate</th><th>Meaning</th><th>Example Use</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1748.0</td><td>Midnight, story begins</td><td>Opening log entry</td></tr>
+          <tr><td>1748.5</td><td>Noon, central scene</td><td>Main event</td></tr>
+          <tr><td>1748.3</td><td>Next day, morning</td><td>Progression</td></tr>
+        </tbody>
+      </table>
+
+      <!-- Inserted Time-of-Day Instructions Panel -->
+      <div class="panel">
+        <div class="section-title">Understanding the Time-of-Day Dial (0–9)</div>
+        <div class="section-subtitle">
+          The Chronometric Guild divides each day into ten equal segments instead of using hours.
+          This keeps Stardates compact, elegant, and easy to track across your narrative.
+        </div>
+
+        <p>Each digit from <strong>0–9</strong> represents a distinct phase of the day:</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Decimal</th>
+              <th>Time of Day</th>
+              <th>Meaning</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>0</strong></td><td>Midnight</td><td>Start of the new Stardate</td></tr>
+            <tr><td><strong>1</strong></td><td>Early Morning</td><td>Pre-dawn, lamps still lit</td></tr>
+            <tr><td><strong>2</strong></td><td>Morning</td><td>Sunrise and early activity</td></tr>
+            <tr><td><strong>3</strong></td><td>Late Morning</td><td>Workday fully underway</td></tr>
+            <tr><td><strong>4</strong></td><td>Midday Approaching</td><td>Late-morning bustle</td></tr>
+            <tr><td><strong>5</strong></td><td>Noon</td><td>High sun; common log entry time</td></tr>
+            <tr><td><strong>6</strong></td><td>Afternoon</td><td>Shops and workshops in full clatter</td></tr>
+            <tr><td><strong>7</strong></td><td>Late Afternoon</td><td>Lengthening shadows</td></tr>
+            <tr><td><strong>8</strong></td><td>Evening</td><td>Lamps lit; day winds down</td></tr>
+            <tr><td><strong>9</strong></td><td>Late Evening</td><td>Quiet hours before the next Stardate</td></tr>
+          </tbody>
+        </table>
+
+        <div class="section-title" style="margin-top:1.5rem;">Quick Rule of Thumb</div>
+        <ul>
+          <li><strong>Dark scenes</strong> → choose <strong>0 or 9</strong></li>
+          <li><strong>Daylight scenes</strong> → choose <strong>2–7</strong></li>
+          <li><strong>Noon or pivotal moments</strong> → choose <strong>5</strong></li>
+          <li><strong>Transitions between day parts</strong> → pick the number between them</li>
+        </ul>
+
+        <div class="section-title" style="margin-top:1.5rem;">Example Interpretations</div>
+        <ul>
+          <li><strong>1748.0</strong> — Midnight at the beginning of Day 1748</li>
+          <li><strong>1748.5</strong> — Noon on Day 1748</li>
+          <li><strong>1749.8</strong> — Evening of the next day</li>
+          <li><strong>1750.3</strong> — Late morning, two days later</li>
+        </ul>
+
+        <div class="callout" style="margin-top:1rem;">
+          <strong>Why this system?</strong>  
+          The Guild’s decimal-day model mirrors a thermometer:  
+          simple to read, impossible to misuse, and perfect for fast-paced storytelling.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="notification" class="notification">Copied to clipboard!</div>
+
+  <script>
+    let state = { formatName:'Steam-Date', baseYear:1748, progression:1748, decimal:0 };
+
+    function switchTab(tabName){
+      document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      document.getElementById(tabName).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    function updateStardate(){
+      state.progression=parseInt(document.getElementById('progressionInput').value)||state.baseYear;
+      state.decimal=parseInt(document.getElementById('decimalInput').value)||0;
+      document.getElementById('currentStardate').textContent=`${state.progression}.${state.decimal}`;
+    }
+
+    function incrementStardate(){ state.progression++; document.getElementById('progressionInput').value=state.progression; updateStardate(); }
+    function incrementTime(){ state.decimal++; if(state.decimal>9){state.decimal=0; state.progression++; document.getElementById('progressionInput').value=state.progression;} document.getElementById('decimalInput').value=state.decimal; updateStardate(); }
+
+    function copyStardate(){
+      const value=`${state.formatName} ${state.progression}.${state.decimal}`;
+      navigator.clipboard.writeText(value).then(()=>showNotification());
+    }
+
+    function showNotification(){
+      const n=document.getElementById('notification'); n.classList.add('show'); setTimeout(()=>n.classList.remove('show'),2000);
+    }
+
+    function updateFormat(){ state.formatName=document.getElementById('customFormatInput').value; }
+    function updateBaseYear(){ state.baseYear=parseInt(document.getElementById('baseYearInput').value)||1748; }
+    function applySetup() {
+  // 1. Pull values from the Setup tab into state
+  updateFormat();
+  updateBaseYear();
+
+  // 2. Reset progression to the new base year and time of day to 0 (midnight)
+  state.progression = state.baseYear;
+  state.decimal = 0;
+
+  // 3. Sync the inputs with the new state
+  document.getElementById('progressionInput').value = state.progression;
+  document.getElementById('decimalInput').value = state.decimal;
+
+  // 4. Re-render the big stardate display
+  updateStardate();
+
+  // 5. Show a clear confirmation
+  const n = document.getElementById('notification');
+  n.textContent = 'Settings applied!';
+  n.classList.add('show');
+  setTimeout(() => {
+    n.classList.remove('show');
+    n.textContent = 'Copied to clipboard!';
+  }, 2000);
+}
+
+
+    window.addEventListener('DOMContentLoaded',updateStardate);
+  </script>
+</body>
+</html>

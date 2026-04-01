@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HMR‑9 "Peregrine" Field Manual – Type‑VI Hardened Learning Mags</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    :root {
+      --bg: #080809;
+      --bg-panel: #151317;
+      --bg-panel-alt: #1c181f;
+      --text-main: #f5ecd8;
+      --text-muted: #b7aa92;
+      --accent-brass: #c89b3c;
+      --accent-brass-soft: #a4762d;
+      --accent-red: #c4493d;
+      --accent-amber: #e0a63e;
+      --accent-green: #3ba464;
+      --border-soft: rgba(255, 245, 214, 0.15);
+      --shadow-soft: 0 0 20px rgba(0, 0, 0, 0.8);
+      --mono: "Fira Mono", "Consolas", "Courier New", monospace;
+      --body-font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --display-font: "Cormorant Garamond", "Cinzel", "Georgia", serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: var(--body-font);
+      background:
+        radial-gradient(circle at top left, #261918 0, #080809 55%) fixed;
+      color: var(--text-main);
+      line-height: 1.55;
+    }
+	
+	/* Hero image header */
+.hero {
+  margin: 0 auto 2rem;
+  max-width: 1200px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  background: radial-gradient(circle at top, #2b2227 0, #050307 70%);
+}
+
+.hero-media {
+  position: relative;
+  width: 100%;
+}
+
+/* Maintains 1200x600 (2:1) aspect ratio while responsive */
+.hero-media::before {
+  content: "";
+  display: block;
+  padding-top: 50%; /* 600 / 1200 = 0.5 */
+}
+
+.hero-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Optional overlay text area */
+.hero-overlay {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 1.1rem 1.5rem;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.78),
+    rgba(0, 0, 0, 0.4),
+    transparent
+  );
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.hero-kicker {
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-brass-soft);
+  opacity: 0.9;
+}
+
+.hero-title {
+  font-family: var(--display-font);
+  font-size: 1.5rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #f8ecd4;
+}
+
+.hero-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  max-width: 480px;
+}
+
+/* Small screens: tighten padding and text size */
+@media (max-width: 600px) {
+  .hero-overlay {
+    padding: 0.85rem 0.95rem;
+  }
+
+  .hero-title {
+    font-size: 1.25rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.8rem;
+  }
+}
+
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 3.5rem;
+    }
+
+    .panel {
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.03),
+        rgba(0, 0, 0, 0.8)
+      );
+      border-radius: 12px;
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      padding: 1.75rem 1.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      border: 1px solid rgba(200, 155, 60, 0.15);
+      pointer-events: none;
+    }
+
+    .page-header {
+      margin-bottom: 2rem;
+    }
+
+    .title-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .title-block {
+      flex: 1 1 250px;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: var(--display-font);
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      font-size: 1.75rem;
+      color: var(--accent-brass);
+    }
+
+    .subtitle {
+      margin-top: 0.35rem;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .tagline {
+      margin-top: 0.4rem;
+      font-style: italic;
+      font-size: 0.9rem;
+      color: #e8dcc2;
+    }
+
+    .badge-block {
+      flex: 0 0 220px;
+      align-self: stretch;
+      display: flex;
+      align-items: stretch;
+      justify-content: flex-end;
+    }
+
+    .spec-badge {
+      border-radius: 999px;
+      border: 1px solid var(--accent-brass-soft);
+      padding: 0.3rem 0.85rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: radial-gradient(circle at top, #3e2b1a 0, #171011 60%);
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.7);
+      white-space: nowrap;
+    }
+
+    .spec-badge span.label {
+      color: var(--text-muted);
+    }
+
+    .spec-badge span.value {
+      color: #f6e6c0;
+      font-weight: 600;
+    }
+
+    .spec-badge span.dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent-brass);
+      box-shadow: 0 0 8px rgba(200, 155, 60, 0.8);
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.75rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.9rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 0.65rem;
+    }
+
+    .meta-row span {
+      opacity: 0.9;
+    }
+
+    .meta-label {
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 0.7rem;
+      color: var(--accent-brass-soft);
+    }
+
+    .meta-value {
+      margin-left: 0.3rem;
+    }
+
+    /* Layout */
+    .content-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
+      gap: 1.75rem;
+      margin-top: 1.5rem;
+    }
+
+    @media (max-width: 900px) {
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    section {
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title {
+      font-family: var(--display-font);
+      font-size: 0.95rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent-brass);
+      margin-bottom: 0.4rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    p {
+      margin: 0 0 0.6rem;
+      font-size: 0.92rem;
+    }
+
+    ul {
+      padding-left: 1.2rem;
+      margin: 0.2rem 0 0.65rem;
+    }
+
+    li {
+      margin-bottom: 0.22rem;
+      font-size: 0.9rem;
+    }
+
+    .callout {
+      border-radius: 8px;
+      border: 1px solid rgba(250, 225, 180, 0.26);
+      background: linear-gradient(
+        135deg,
+        rgba(255, 240, 210, 0.04),
+        rgba(0, 0, 0, 0.6)
+      );
+      padding: 0.75rem 0.9rem;
+      font-size: 0.88rem;
+      margin-top: 0.5rem;
+    }
+
+    .callout strong {
+      color: #ffe4a6;
+    }
+
+    .mono {
+      font-family: var(--mono);
+      font-size: 0.86rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 0.1rem 0.55rem;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    /* Infographic: HUD states bar */
+    .infographic {
+      margin: 0.6rem 0 0.9rem;
+      border-radius: 10px;
+      border: 1px solid var(--border-soft);
+      background: radial-gradient(circle at top, #2b2227 0, #0a0509 70%);
+      padding: 0.75rem 0.9rem 0.9rem;
+    }
+
+    .infographic-title {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .hud-bar {
+      margin-top: 0.4rem;
+    }
+
+    .hud-bar svg {
+      width: 100%;
+      max-width: 420px;
+      display: block;
+      margin: 0.2rem 0;
+    }
+
+    .legend-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1.1rem;
+      margin-top: 0.45rem;
+      font-size: 0.78rem;
+    }
+
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      color: var(--text-muted);
+    }
+
+    .legend-swatch {
+      width: 14px;
+      height: 8px;
+      border-radius: 4px;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.7);
+    }
+
+    .swatch-green { background: var(--accent-green); }
+    .swatch-amber { background: var(--accent-amber); }
+    .swatch-red   { background: var(--accent-red); }
+
+    /* Infographic: Mag status legend */
+    .mag-legend {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+      gap: 0.5rem;
+      margin-top: 0.3rem;
+      font-size: 0.8rem;
+    }
+
+    .mag-pill {
+      border-radius: 999px;
+      padding: 0.3rem 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .mag-pill span.dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .mag-pill.green span.dot   { background: var(--accent-green);  box-shadow: 0 0 8px rgba(59, 164, 100, 0.9); }
+    .mag-pill.amber span.dot   { background: var(--accent-amber);  box-shadow: 0 0 8px rgba(224, 166, 62, 0.9); }
+    .mag-pill.red span.dot     { background: var(--accent-red);    box-shadow: 0 0 8px rgba(196, 73, 61, 0.9); }
+
+    .mag-pill span.label {
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.68rem;
+    }
+
+    .mag-pill span.desc {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* Infographic: Learning vs Shots graph */
+    .graph {
+      margin-top: 0.4rem;
+    }
+
+    .graph svg {
+      width: 100%;
+      max-width: 420px;
+      display: block;
+      margin: 0.2rem 0;
+    }
+
+    .graph-caption {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    /* Checklist style */
+    .checklist li::before {
+      content: "☑";
+      color: var(--accent-brass);
+      margin-right: 0.4rem;
+      font-size: 0.85rem;
+    }
+
+    .mode-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.7rem;
+      margin-top: 0.4rem;
+    }
+
+    .mode-card {
+      border-radius: 8px;
+      border: 1px solid var(--border-soft);
+      background: rgba(0, 0, 0, 0.5);
+      padding: 0.6rem 0.7rem;
+      font-size: 0.82rem;
+    }
+
+    .mode-name {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--accent-brass-soft);
+      margin-bottom: 0.25rem;
+    }
+
+    .footer-note {
+      margin-top: 1.25rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      border-top: 1px dashed rgba(255, 255, 255, 0.14);
+      padding-top: 0.7rem;
+    }
+
+    /* Small gear-ish corner deco */
+    .gear-corner {
+      position: absolute;
+      right: -40px;
+      top: -40px;
+      width: 120px;
+      height: 120px;
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    .gear-corner svg {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- Hero image header -->
+    <header class="hero">
+      <div class="hero-media">
+        <img
+          src="images/headers/03_peregrin_plasma_transparent_1200x600.png"
+          alt="HMR-9 &quot;Peregrine&quot; bore-adaptive phased plasma rifle on display"
+        >
+      </div>
+      <div class="hero-overlay">
+        <div class="hero-kicker">Field Manual · HMR-9 Pattern</div>
+        <div class="hero-title">“Peregrine” Bore-Adaptive Plasma Rifle</div>
+        <div class="hero-subtitle">
+          Squad-level shield-piercing rifle paired with Type-VI “Hardened Learning” magazines:
+          the gun remembers what works—and refuses to remember lies.
+        </div>
+      </div>
+    </header>
+
+    <div class="panel page-header">
+
+
+      <!-- Decorative gear corner -->
+      <div class="gear-corner" aria-hidden="true">
+        <svg viewBox="0 0 120 120">
+          <circle cx="60" cy="60" r="34" fill="none" stroke="#c89b3c" stroke-width="3" />
+          <circle cx="60" cy="60" r="8" fill="none" stroke="#c89b3c" stroke-width="2" />
+          <path d="M60 14 L64 28 L56 28 Z" fill="#c89b3c" />
+          <path d="M60 106 L64 92 L56 92 Z" fill="#c89b3c" />
+          <path d="M14 60 L28 64 L28 56 Z" fill="#c89b3c" />
+          <path d="M106 60 L92 64 L92 56 Z" fill="#c89b3c" />
+        </svg>
+      </div>
+
+      <div class="title-row">
+        <div class="title-block">
+          <h1>HMR‑9 “Peregrine”</h1>
+          <div class="subtitle">
+            Bore‑Adaptive Phased Plasma Rifle &nbsp;·&nbsp;
+            Type‑VI “Hardened Learning” Magazines
+          </div>
+          <div class="tagline">
+            <span class="mono">“The gun remembers what works &mdash; and refuses to remember lies.”</span>
+          </div>
+        </div>
+
+        <div class="badge-block">
+          <div class="spec-badge">
+            <span class="label">Pattern</span>
+            <span class="value">HMR‑9</span>
+            <span class="dot"></span>
+            <span class="label">Codename</span>
+            <span class="value">Peregrine</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="meta-row">
+        <span><span class="meta-label">Role</span><span class="meta-value">Squad‑level shield‑piercing rifle</span></span>
+        <span><span class="meta-label">Ammo</span><span class="meta-value">Type‑VI Hardened Learning Bore Mags</span></span>
+        <span><span class="meta-label">Modes</span><span class="meta-value">WHITE · BLUE · BLUE‑HARD</span></span>
+        <span><span class="meta-label">HUD States</span><span class="meta-value">CALM · SKEPTICAL · LOCKED</span></span>
+      </div>
+    </div>
+
+    <div class="content-grid">
+      <!-- LEFT COLUMN -->
+      <div>
+        <!-- 1. PURPOSE -->
+        <section id="purpose">
+          <div class="section-title">1. Purpose</div>
+          <p>
+            The HMR‑9 “Peregrine” is the standard squad‑level **shield‑piercing rifle**, designed to:
+          </p>
+          <ul>
+            <li>Engage <strong>personal bubbles</strong>, light and heavy.</li>
+            <li>Defeat <strong>vehicle and walker screens</strong>.</li>
+            <li>Drill into <strong>static perimeter fields</strong>, including adaptive and “amnesia” shields.</li>
+          </ul>
+          <p>
+            The rifle and its Type‑VI mags form a **closed learning loop** that adapts to local shield behavior while resisting hostile feedback and data‑poisoning.
+          </p>
+          <div class="callout">
+            <strong>Remember:</strong> The Peregrine learns from your shots&mdash;but it protects itself first.
+            Once it decides a shield is lying, it will **lock** rather than corrupt its own memory.
+          </div>
+        </section>
+
+        <!-- 2. QUICK ID -->
+        <section id="quick-id">
+          <div class="section-title">2. Quick Identification</div>
+          <p class="section-subtitle">Know what you’re holding before you pull the trigger.</p>
+          <ul>
+            <li><strong>Caliber:</strong> Bore‑shaped phased plasma slug; morphable geometry (bolt / drill / spear).</li>
+            <li><strong>Effective bore range:</strong> ~600 m line‑of‑sight under standard conditions.</li>
+            <li><strong>Trigger half‑press:</strong> emits low‑energy **field sniff pulse**.</li>
+            <li><strong>HUD feedback:</strong> rifle reports its trust state as:
+              <span class="pill"><span>CALM</span></span>,
+              <span class="pill"><span>SKEPTICAL</span></span>,
+              <span class="pill"><span>LOCKED</span></span>.
+            </li>
+            <li><strong>Magazine type:</strong> Type‑VI Hardened Learning Mag (“Vee‑Six”). Brass‑ribbed, status window on side.</li>
+          </ul>
+        </section>
+
+        <!-- 5. STANDARD BORE ENGAGEMENT (with infographic) -->
+        <section id="bore-drill">
+          <div class="section-title">3. Standard Bore Engagement Drill</div>
+          <p class="section-subtitle">Use this whenever you have time to let the mag learn.</p>
+
+          <ol style="padding-left:1.2rem; margin:0.3rem 0;">
+            <li>
+              <strong>Identify fielded target.</strong><br>
+              Confirm visual/thermal shield: domes, shimmer, or sensor flag.
+            </li>
+            <li>
+              <strong>Sniff the shield.</strong><br>
+              Half‑press trigger until HUD shows <span class="mono">FIELD LOCKING…</span> then <span class="mono">LOCKED</span>.<br>
+              <em>Do not spam sniff pulses.</em> One clean read beats five dirty ones.
+            </li>
+            <li>
+              <strong>First shot: mapping round.</strong><br>
+              Fire one <span class="mono">BLUE</span> bore shot. Watch shield flare and penetration indicator (if present).
+            </li>
+            <li>
+              <strong>Second & third shots: learning phase.</strong><br>
+              Fire controlled singles or short bursts, adjust aim point slightly. Let the mag refine its model.
+            </li>
+            <li>
+              <strong>If no improvement after 3–4 hits, or HUD goes LOCKED:</strong><br>
+              Call <span class="mono">“Amnesia dome, Peregrine locked.”</span> and shift to heavy support / alternate breach.
+            </li>
+          </ol>
+
+          <div class="infographic">
+            <div class="infographic-title">HUD Trust States vs. Shots Fired</div>
+            <div class="graph">
+              <!-- Simple line graph: learning performance vs shots -->
+              <svg viewBox="0 0 320 130" role="img" aria-labelledby="graph-title graph-desc">
+                <title id="graph-title">Relative Bore Effectiveness vs. Shots Fired</title>
+                <desc id="graph-desc">
+                  Compares naive magazines, hardened Vee‑Six mags, and mags under amnesia shield conditions.
+                </desc>
+                <!-- Axes -->
+                <line x1="40" y1="20" x2="40" y2="110" stroke="#777" stroke-width="1" />
+                <line x1="40" y1="110" x2="300" y2="110" stroke="#777" stroke-width="1" />
+                <!-- Axis labels -->
+                <text x="12" y="18" font-size="8" fill="#ccc" transform="rotate(-90 12 18)">Relative Penetration</text>
+                <text x="180" y="125" font-size="8" fill="#ccc">Shots Fired</text>
+
+                <!-- Grid lines -->
+                <line x1="40" y1="80" x2="300" y2="80" stroke="#444" stroke-dasharray="2,3" stroke-width="0.6"/>
+                <line x1="40" y1="50" x2="300" y2="50" stroke="#444" stroke-dasharray="2,3" stroke-width="0.6"/>
+
+                <!-- Naive mag line -->
+                <polyline
+                  fill="none"
+                  stroke="#b15a3c"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  points="40,100 95,88 150,82 205,80 260,79"
+                />
+                <text x="262" y="82" font-size="7" fill="#b15a3c">Naive</text>
+
+                <!-- Hardened Vee-Six line -->
+                <polyline
+                  fill="none"
+                  stroke="#3ba464"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  points="40,100 95,82 150,66 205,54 260,48"
+                />
+                <text x="262" y="51" font-size="7" fill="#3ba464">Type‑VI Hardened</text>
+
+                <!-- Amnesia shield outcome line -->
+                <polyline
+                  fill="none"
+                  stroke="#e0a63e"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-dasharray="3,2"
+                  points="40,100 95,90 150,92 205,96 260,98"
+                />
+                <text x="262" y="96" font-size="7" fill="#e0a63e">Amnesia Shield</text>
+
+                <!-- X-axis tick labels -->
+                <text x="60" y="120" font-size="8" fill="#888">1</text>
+                <text x="115" y="120" font-size="8" fill="#888">2</text>
+                <text x="170" y="120" font-size="8" fill="#888">3</text>
+                <text x="225" y="120" font-size="8" fill="#888">4</text>
+                <text x="280" y="120" font-size="8" fill="#888">5</text>
+              </svg>
+              <div class="graph-caption">
+                Hardened mags improve quickly under honest shields, plateau under stable lies, and drop into locked fallback under confirmed amnesia patterns.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6. MAG HANDLING -->
+        <section id="mag-handling">
+          <div class="section-title">4. Mag Handling & Discipline</div>
+          <p class="section-subtitle">Treat Vee‑Six mags as experienced kit, not disposable sticks.</p>
+          <ul class="checklist">
+            <li><strong>Label your mags.</strong> Mark by theatre or shield type (e.g., <span class="mono">URB‑GRID‑1</span>, <span class="mono">FLEET‑HULL</span>).</li>
+            <li><strong>Do not</strong> toss siege‑trained mags back into general ammo pools.</li>
+            <li><strong>If HUD shows</strong> <span class="mono">MAG SUSPECT</span>, finish contact if needed, then quarantine.</li>
+            <li><strong>Report lost Vee‑Six mags.</strong> Treat as classified hardware.</li>
+          </ul>
+          <div class="callout">
+            <strong>Reminder:</strong> Rifles are replaceable. A well‑trained Vee‑Six that has survived multiple domes is not.
+          </div>
+        </section>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div>
+        <!-- 3. TYPE-VI MAG INFO -->
+        <section id="type-vi">
+          <div class="section-title">5. Type‑VI “Hardened Learning” Mags</div>
+          <p class="section-subtitle">Built to learn fast, then refuse corrupted lessons.</p>
+          <ul>
+            <li><strong>Physical build:</strong> brass‑ribbed shell, shielded body, side status window.</li>
+            <li><strong>Internal memory:</strong>
+              <ul>
+                <li>Fast cache & shadow cache (dual live copies).</li>
+                <li>Golden store (last known‑good profile, radiation‑hardened).</li>
+              </ul>
+            </li>
+            <li><strong>Error correction:</strong> all models and telemetry use ECC; bad packets are discarded.</li>
+            <li><strong>Telemetry security:</strong> fired rounds sign their reports; mags ignore unauthenticated “ghost data.”</li>
+          </ul>
+
+          <div class="infographic">
+            <div class="infographic-title">Mag Status Indicator (Side Window)</div>
+            <div class="mag-legend">
+              <div class="mag-pill green">
+                <span class="dot"></span>
+                <div>
+                  <div class="label">Green</div>
+                  <div class="desc">Learning normal</div>
+                </div>
+              </div>
+              <div class="mag-pill amber">
+                <span class="dot"></span>
+                <div>
+                  <div class="label">Amber</div>
+                  <div class="desc">Paranoid, limited learning</div>
+                </div>
+              </div>
+              <div class="mag-pill red">
+                <span class="dot"></span>
+                <div>
+                  <div class="label">Red</div>
+                  <div class="desc">Locked &mdash; safe bore only</div>
+                </div>
+              </div>
+            </div>
+            <p style="margin-top:0.55rem; font-size:0.8rem; color:var(--text-muted);">
+              <strong>Red does not mean “empty.”</strong> It means the mag refuses new shield lessons. You still have bore shots; they just won’t adapt.
+            </p>
+          </div>
+        </section>
+
+        <!-- 4. HUD STATES -->
+        <section id="hud">
+          <div class="section-title">6. HUD States & What to Do</div>
+
+          <div class="infographic">
+            <div class="infographic-title">Peregrine HUD Trust Bar</div>
+            <div class="hud-bar">
+              <svg viewBox="0 0 320 60" role="img" aria-labelledby="hud-title hud-desc">
+                <title id="hud-title">HUD Trust States</title>
+                <desc id="hud-desc">
+                  Shows three segments: CALM, SKEPTICAL, and LOCKED, with corresponding colors.
+                </desc>
+                <!-- Outer frame -->
+                <rect x="10" y="18" width="300" height="24" fill="none" stroke="#f5ecd8" stroke-width="1" rx="6" ry="6" />
+                <!-- Segments -->
+                <rect x="12" y="20" width="96" height="20" fill="#285b3a" rx="4" ry="4" />
+                <rect x="112" y="20" width="96" height="20" fill="#7b5c1b" rx="4" ry="4" />
+                <rect x="212" y="20" width="96" height="20" fill="#7c3029" rx="4" ry="4" />
+                <!-- Labels -->
+                <text x="60" y="34" text-anchor="middle" font-size="9" fill="#f5ecd8">CALM</text>
+                <text x="160" y="34" text-anchor="middle" font-size="9" fill="#f5ecd8">SKEPTICAL</text>
+                <text x="260" y="34" text-anchor="middle" font-size="9" fill="#f5ecd8">LOCKED</text>
+              </svg>
+              <div class="legend-row">
+                <span class="legend-item">
+                  <span class="legend-swatch swatch-green"></span>
+                  <span>Normal learning &mdash; shield appears honest.</span>
+                </span>
+                <span class="legend-item">
+                  <span class="legend-swatch swatch-amber"></span>
+                  <span>Limited learning &mdash; shield behavior suspicious.</span>
+                </span>
+                <span class="legend-item">
+                  <span class="legend-swatch swatch-red"></span>
+                  <span>Locked &mdash; amnesia / data‑poison likely.</span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <ul>
+            <li>
+              <strong>CALM (Green):</strong> clean telemetry, penetration improving.<br>
+              <em>Action:</em> use BLUE bore mode as normal. Avoid unnecessary mag swaps mid‑learning.
+            </li>
+            <li>
+              <strong>SKEPTICAL (Amber):</strong> inconsistent data or slow improvement.<br>
+              <em>Action:</em> fire fewer, better‑aimed shots; report to squad lead that the Peregrine is “skeptical.”
+            </li>
+            <li>
+              <strong>LOCKED (Red):</strong> suspected amnesia or hostile shield feedback.<br>
+              <em>Action:</em> stop expecting adaptation. Rifle auto‑uses BLUE‑HARD safe profile. Call for heavy support / alternate breach.
+            </li>
+          </ul>
+        </section>
+
+        <!-- 7. MODES -->
+        <section id="modes">
+          <div class="section-title">7. Fire Modes You’ll Actually Use</div>
+          <div class="mode-grid">
+            <div class="mode-card">
+              <div class="mode-name">WHITE</div>
+              <p>
+                Standard bolt. Unshaped plasma for soft, unshielded targets. Use to conserve mag learning capacity for when shields appear.
+              </p>
+            </div>
+            <div class="mode-card">
+              <div class="mode-name">BLUE</div>
+              <p>
+                Bore mode. Shaped, drilling plasma that learns from each hit unless HUD is LOCKED. Default vs any visible field.
+              </p>
+            </div>
+            <div class="mode-card">
+              <div class="mode-name">BLUE‑HARD</div>
+              <p>
+                Locked bore profile. Engages under suspected amnesia or severe noise. Less efficient, more trustworthy.
+                Auto‑selected when Peregrine locks.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 8. TROUBLESHOOTING -->
+        <section id="troubleshooting">
+          <div class="section-title">8. Basic Troubleshooting (In the Field)</div>
+          <ul>
+            <li>
+              <strong>Symptom:</strong> No <span class="mono">FIELD LOCKING…</span> even with visible shield.<br>
+              <em>Check:</em> optic alignment, muzzle apertures for fouling. Switch to BLUE‑HARD and report after contact.
+            </li>
+            <li>
+              <strong>Symptom:</strong> HUD flipping rapidly between CALM and SKEPTICAL.<br>
+              <em>Likely:</em> adaptive or “drunken” shield.<br>
+              <em>Action:</em> shorten bursts, stagger shots; coordinate with squad for multi‑angle probing.
+            </li>
+            <li>
+              <strong>Symptom:</strong> Sudden drop from CALM to LOCKED after a weird hit.<br>
+              <em>Likely:</em> amnesia spike / data‑poison attempt.<br>
+              <em>Action:</em> trust the lock, don’t attempt to “force” learning back. Escalate.
+            </li>
+          </ul>
+        </section>
+
+        <!-- 9. SAFETY & DOCTRINE -->
+        <section id="safety">
+          <div class="section-title">9. Safety & Doctrine Notes</div>
+          <p>
+            The Peregrine runs two internal “minds”: an open, fast learner and a slow, paranoid survivor. Under clean conditions, the fast learner guides bore shaping. Under hostile conditions, the survivor takes over and **refuses to accept bad lessons**.
+          </p>
+          <ul>
+            <li>Once the rifle locks, no squad‑level action can “talk it out of it” mid‑fight.</li>
+            <li>Do not treat CALM as permanent; shields adapt and lie back.</li>
+            <li>Respect the lock state; it’s there to protect your mag’s memory from corruption.</li>
+          </ul>
+          <div class="footer-note">
+            <strong>Doctrine mantra:</strong> <span class="mono">“Let the Peregrine learn&mdash;until the lies start. Then let it forget nothing.”</span>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
