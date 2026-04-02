@@ -1,8 +1,87 @@
-
-
 # php -- BEGIN cPanel-generated handler, do not edit
-# Set the “ea-php82” package as the default “PHP” programming language.
+# Set the "ea-php82" package as the default "PHP" programming language.
 <IfModule mime_module>
   AddHandler application/x-httpd-ea-php82 .php .php8 .phtml
 </IfModule>
 # php -- END cPanel-generated handler, do not edit
+
+# ===========================================================
+#  GZIP / BROTLI COMPRESSION
+# ===========================================================
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css
+  AddOutputFilterByType DEFLATE text/javascript application/javascript application/json
+  AddOutputFilterByType DEFLATE image/svg+xml application/xml text/xml
+  AddOutputFilterByType DEFLATE application/font-woff2 font/woff2
+</IfModule>
+
+# ===========================================================
+#  BROWSER CACHING
+# ===========================================================
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault                          "access plus 1 month"
+  ExpiresByType text/html                 "access plus 0 seconds"
+  ExpiresByType text/css                  "access plus 1 year"
+  ExpiresByType text/javascript           "access plus 1 year"
+  ExpiresByType application/javascript    "access plus 1 year"
+  ExpiresByType image/png                 "access plus 1 year"
+  ExpiresByType image/jpeg                "access plus 1 year"
+  ExpiresByType image/webp                "access plus 1 year"
+  ExpiresByType image/svg+xml             "access plus 1 year"
+  ExpiresByType image/x-icon              "access plus 1 year"
+  ExpiresByType font/woff2                "access plus 1 year"
+  ExpiresByType application/font-woff2    "access plus 1 year"
+</IfModule>
+
+# Cache-Control headers (fallback / supplement)
+<IfModule mod_headers.c>
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(png|jpe?g|webp|svg|ico)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(html|htm)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
+
+# ===========================================================
+#  SECURITY HEADERS
+# ===========================================================
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set X-XSS-Protection "1; mode=block"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+</IfModule>
+
+# ===========================================================
+#  PREVENT DIRECTORY LISTING
+# ===========================================================
+Options -Indexes
+
+# ===========================================================
+#  CUSTOM ERROR PAGES
+# ===========================================================
+ErrorDocument 404 /index.html
+
+# ===========================================================
+#  FORCE HTTPS (uncomment when SSL is active)
+# ===========================================================
+# <IfModule mod_rewrite.c>
+#   RewriteEngine On
+#   RewriteCond %{HTTPS} off
+#   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# </IfModule>
+
+# ===========================================================
+#  FORCE WWW (uncomment if desired)
+# ===========================================================
+# <IfModule mod_rewrite.c>
+#   RewriteEngine On
+#   RewriteCond %{HTTP_HOST} !^www\. [NC]
+#   RewriteRule ^ https://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# </IfModule>

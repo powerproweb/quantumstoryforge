@@ -6,865 +6,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
         content="A Steampunk Science Fiction Writers Think Tank powered by 8 specialized AI personas, each trained as a different genre author with unique skills.">
-  <style>
-:root {
-      --bg-main: #050608;
-      --bg-alt: #0d1015;
-      --panel: #171a22;
-      --accent: #c28f3f;
-      --accent-soft: #f3d5a1;
-      --accent-red: #b84b3c;
-      --text-main: #f5f2e9;
-      --text-muted: #c7c1b0;
-      --border-soft: rgba(242, 209, 145, 0.3);
-      --header-height: 0px;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html,
-    body {
-      width: 100%;
-      overflow-x: hidden; /* no horizontal scroll */
-    }
-
-    body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at top, #26293a 0, #050608 45%, #020304 100%);
-      color: var(--text-main);
-      line-height: 1.6;
-      padding-top: var(--header-height);
-    }
-
-    a {
-      color: var(--accent-soft);
-      text-decoration: none;
-    }
-
-    a:hover,
-    a:focus-visible {
-      text-decoration: underline;
-    }
-
-    img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    /* HEADER -------------------------------------------------------------- */
-
-    header {
-      border-bottom: 1px solid var(--border-soft);
-      background: radial-gradient(circle at top left, #26293a 0, #050608 55%);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      width: 100%;
-      z-index: 5000;
-      isolation: isolate;
-    }
-
-    .shell {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 1rem 1.5rem;
-    }
-
-    .top-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      min-width: 0;
-    }
-
-    .brand-icon {
-      width: 34px;
-      height: 34px;
-      border-radius: 999px;
-      border: 1px solid var(--accent);
-      box-shadow:
-        0 0 6px rgba(194, 143, 63, 0.7),
-        inset 0 0 6px rgba(0, 0, 0, 0.9);
-      position: relative;
-      background: radial-gradient(circle at 30% 20%, #f3d5a1 0, #a06d25 40%, #1c140a 100%);
-      flex-shrink: 0;
-    }
-
-    .brand-icon::after {
-      content: "";
-      position: absolute;
-      inset: 7px;
-      border-radius: 999px;
-      border: 1px dashed rgba(9, 9, 11, 0.8);
-    }
-
-    .brand-text {
-      display: flex;
-      flex-direction: column;
-      gap: 0.05rem;
-      min-width: 0;
-    }
-
-    .brand-name {
-      font-size: 0.95rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent-soft);
-      white-space: nowrap;
-    }
-
-    .brand-sub {
-      font-size: 0.7rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      white-space: nowrap;
-    }
-
-    /* MAIN NAV ------------------------------------------------------------ */
-
-    .main-nav {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      position: relative;
-      max-width: 100%;
-    }
-
-    /* Hamburger toggle (mobile) */
-    .nav-toggle {
-      display: none;
-    }
-
-    .nav-toggle-label {
-      display: none;
-      cursor: pointer;
-      width: 30px;
-      height: 22px;
-      position: relative;
-      flex-shrink: 0;
-    }
-
-    .nav-toggle-label span {
-      position: absolute;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      border-radius: 999px;
-      background: var(--accent-soft);
-      transition: transform 0.25s ease, opacity 0.2s ease, top 0.25s ease, bottom 0.25s ease;
-    }
-
-    .nav-toggle-label span:nth-child(1) { top: 0; }
-    .nav-toggle-label span:nth-child(2) { top: 50%; transform: translateY(-50%); }
-    .nav-toggle-label span:nth-child(3) { bottom: 0; }
-
-    .nav-toggle:checked + .nav-toggle-label span:nth-child(1) {
-      top: 50%;
-      transform: translateY(-50%) rotate(45deg);
-    }
-
-    .nav-toggle:checked + .nav-toggle-label span:nth-child(2) {
-      opacity: 0;
-    }
-
-    .nav-toggle:checked + .nav-toggle-label span:nth-child(3) {
-      bottom: 50%;
-      transform: translateY(50%) rotate(-45deg);
-    }
-
-    .nav-list {
-      list-style: none;
-      display: flex;
-      align-items: center;
-      gap: 1.25rem;
-      margin-left: 1rem;
-      max-width: 100%;
-    }
-
-    .nav-item {
-      position: relative;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      white-space: nowrap;
-    }
-
-    .nav-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      padding: 0.2rem 0;
-      color: var(--accent-soft);
-      text-decoration: none;
-    }
-
-    .nav-link .caret {
-      font-size: 0.7rem;
-      opacity: 0.8;
-    }
-
-    /* Dropdown (desktop) */
-    .dropdown-menu {
-      position: absolute;
-      right: 0;
-      top: calc(100% + 0.3rem);
-      min-width: 220px;
-      list-style: none;
-      padding: 0.4rem 0.6rem;
-      border-radius: 10px;
-      border: 1px solid var(--border-soft);
-      background: radial-gradient(circle at top, #23242f 0, #050608 80%);
-      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.9);
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(-6px);
-      transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease;
-      z-index: 5100;
-      max-width: 100vw;
-    }
-
-    .dropdown-menu li {
-      margin: 4px 0;
-    }
-
-    .dropdown-menu a {
-      display: inline-block;
-      padding: 3px 10px;
-      font-size: 0.8rem;
-      color: var(--text-main);
-      white-space: normal; /* allow wrapping so text isn't squeezed */
-    }
-
-    .nav-item.dropdown:hover .dropdown-menu,
-    .nav-item.dropdown:focus-within .dropdown-menu {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
-    /* HERO – STATIC IMAGE -------------------------------------------------- */
-
-    .hero {
-      border-bottom: 1px solid rgba(63, 63, 70, 0.7);
-      background:
-        radial-gradient(circle at 12% 0, rgba(194, 143, 63, 0.23) 0, transparent 55%),
-        radial-gradient(circle at 85% 100%, rgba(184, 75, 60, 0.25) 0, transparent 55%);
-    }
-
-    .hero-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem 1.75rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .hero-banner-frame {
-      width: 100%;
-      max-width: 1200px;
-      border-radius: 18px;
-      border: 1px solid rgba(242, 209, 145, 0.3);
-      overflow: hidden;
-      box-shadow:
-        0 24px 60px rgba(0, 0, 0, 0.9),
-        inset 0 0 0 1px rgba(0, 0, 0, 0.8);
-      background: #050608;
-    }
-
-    .hero-banner-image {
-      display: block;
-      width: 100%;
-      height: auto;
-      aspect-ratio: 1200 / 600;
-      object-fit: cover;
-    }
-
-    /* MAIN CONTENT --------------------------------------------------------- */
-
-    main {
-      background: radial-gradient(circle at bottom, rgba(184, 75, 60, 0.12) 0, transparent 55%);
-    }
-
-    #worldbuilding-hub {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2.25rem 1.5rem 2.5rem;
-    }
-
-    #worldbuilding-hub h2 {
-      font-size: 1.7rem;
-      margin-bottom: 0.75rem;
-      color: var(--accent-soft);
-    }
-
-    #worldbuilding-hub h3 {
-      font-size: 1.1rem;
-      margin-top: 1.4rem;
-      margin-bottom: 0.5rem;
-      color: var(--accent-soft);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    #worldbuilding-hub p {
-      max-width: 46rem;
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      margin-bottom: 0.7rem;
-    }
-
-    /* FOOTER --------------------------------------------------------------- */
-
-    footer {
-      border-top: 1px solid rgba(63, 63, 70, 0.8);
-      background: #020307;
-      color: var(--text-muted);
-      padding: 1rem 1.5rem 1.4rem;
-      font-size: 0.78rem;
-    }
-
-    .footer-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .footer-copy {
-      max-width: 60ch;
-    }
-
-    .footer-links {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      font-size: 0.7rem;
-    }
-
-    .footer-links a {
-      color: var(--accent-soft);
-      text-decoration: none;
-      position: relative;
-      padding-bottom: 1px;
-    }
-
-    .footer-links a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 0;
-      height: 1px;
-      background: var(--accent-soft);
-      transition: width 0.2s ease;
-    }
-
-    .footer-links a:hover::after,
-    .footer-links a:focus-visible::after {
-      width: 100%;
-    }
-
-    .footer-sep {
-      opacity: 0.5;
-    }
-
-    /* RESPONSIVE ----------------------------------------------------------- */
-
-    @media (max-width: 960px) {
-      .hero-inner {
-        padding: 1.8rem 1.3rem 1.8rem;
-      }
-      #worldbuilding-hub {
-        padding: 2rem 1.3rem 2.3rem;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .top-bar {
-        align-items: flex-start;
-      }
-
-      .main-nav {
-        flex-direction: column;
-        align-items: flex-end;
-        width: 100%;       /* nav uses full width of header */
-        max-width: 100%;
-      }
-
-      .nav-toggle-label {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-      }
-
-      .nav-list {
-        display: none;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0.35rem;
-        margin-left: 0;
-        margin-top: 0.6rem;
-        width: 100%;       /* full width menu */
-        background: rgba(5, 6, 8, 0.98);
-        border-radius: 10px;
-        padding: 0.7rem 1rem; /* more horizontal padding so text isn't jammed at right */
-        box-shadow: 0 18px 45px rgba(0, 0, 0, 0.9);
-      }
-
-      .nav-toggle:checked ~ .nav-list {
-        display: flex;
-      }
-
-      .nav-item {
-        width: 100%;
-        text-align: left;
-        white-space: normal;
-      }
-
-      .nav-link {
-        justify-content: space-between;
-        width: 100%;
-      }
-
-      .dropdown-menu {
-        position: static;
-        margin-top: 0.25rem;
-        transform: none;
-        opacity: 1;
-        visibility: visible;
-        box-shadow: none;
-        background: transparent;
-        border-radius: 8px;
-        border: none;
-        width: 100%;
-        min-width: 0;
-        padding: 0.1rem 0 0.25rem;
-      }
-
-      .dropdown-menu a {
-        display: block;
-        padding: 0.2rem 0.2rem 0.2rem 0.4rem; /* let text breathe, aligned from left */
-        white-space: normal;
-      }
-
-      .footer-inner {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      header,
-      .shell,
-      .top-bar,
-      .main-nav,
-      .nav-list {
-        max-width: 100%;
-        overflow-x: hidden;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .shell,
-      footer {
-        padding-inline: 1.1rem;
-      }
-      .hero-inner {
-        padding: 1.5rem 1.1rem 1.6rem;
-      }
-      #worldbuilding-hub {
-        padding-inline: 1.1rem;
-      }
-    }
-
-/* Council page additions -------------------------------------------------- */
-
-/* Council section styling */
-    #aetherforge-council-of-8 {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2.25rem 1.5rem 2.5rem;
-    }
-
-    #aetherforge-council-of-8 h2 {
-      font-size: 1.7rem;
-      margin-bottom: 0.75rem;
-      color: var(--accent-soft);
-    }
-
-    #aetherforge-council-of-8 h3 {
-      font-size: 1.1rem;
-      margin-top: 1.4rem;
-      margin-bottom: 0.5rem;
-      color: var(--accent-soft);
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    #aetherforge-council-of-8 p {
-      max-width: 46rem;
-      font-size: 0.95rem;
-      color: var(--text-muted);
-      margin-bottom: 0.7rem;
-    }
-
-    /* Council layout and portraits */
-    .council-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
-      gap: 2.5rem;
-      align-items: flex-start;
-    }
-
-    .council-copy h2 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      color: var(--accent-soft);
-    }
-
-    .council-copy h3 {
-      margin-top: 1.6rem;
-      margin-bottom: 0.6rem;
-      font-size: 1rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--accent);
-    }
-
-    .council-copy p {
-      margin-bottom: 0.9rem;
-    }
-
-    .council-portraits h3 {
-      font-size: 0.95rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--accent-soft);
-      margin-bottom: 1.2rem;
-      text-align: center;
-    }
-
-    .council-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1.3rem 1.1rem;
-    }
-
-    .council-card {
-      background: radial-gradient(circle at 0 0, rgba(194, 143, 63, 0.15), transparent 55%),
-                  radial-gradient(circle at 100% 100%, rgba(184, 75, 60, 0.18), transparent 55%),
-                  var(--panel);
-      border-radius: 0.9rem;
-      border: 1px solid rgba(242, 209, 145, 0.24);
-      padding: 0.8rem 0.8rem 0.9rem;
-      text-align: center;
-      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.9);
-      position: relative;
-      overflow: hidden;
-      transition:
-        transform 170ms ease-out,
-        box-shadow 170ms ease-out,
-        border-color 170ms ease-out,
-        background 170ms ease-out;
-      cursor: pointer;
-    }
-
-    .council-image-placeholder {
-      width: 100%;
-      height: auto;
-      border-radius: 0.7rem;
-      border: 1px solid rgba(242, 209, 145, 0.35);
-      box-shadow:
-        0 10px 26px rgba(0, 0, 0, 0.9),
-        0 0 0 1px rgba(0, 0, 0, 0.55) inset;
-      display: block;
-      object-fit: cover;
-      filter: grayscale(0.25);
-      transform: translateY(0);
-      transition:
-        transform 180ms ease-out,
-        box-shadow 180ms ease-out,
-        filter 180ms ease-out,
-        border-color 180ms ease-out;
-    }
-
-    .council-name {
-      margin-top: 0.6rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.18rem;
-      text-align: center;
-      transition:
-        color 160ms ease-out,
-        letter-spacing 160ms ease-out;
-      width: 100%;
-      max-width: 100%;
-      padding-inline: 0.25rem;
-      box-sizing: border-box;
-    }
-
-    .council-name-main {
-      font-size: 0.8rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      display: block;
-      width: 100%;
-      max-width: 100%;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    /* Slightly tighter option for long names */
-    .council-name-main--long {
-      font-size: 0.75rem;
-      letter-spacing: 0.12em;
-    }
-
-    .council-name-role {
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: rgba(243, 213, 161, 0.75);
-      opacity: 0.9;
-    }
-
-    /* Read Bio link under each card */
-    .council-bio-link {
-      margin-top: 0.45rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-      font-size: 0.72rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      text-decoration: none;
-      color: rgba(243, 213, 161, 0.85);
-      border-bottom: 1px dotted rgba(243, 213, 161, 0.4);
-      padding-bottom: 0.05rem;
-    }
-
-    .council-bio-link::after {
-      content: "↗";
-      font-size: 0.78rem;
-      opacity: 0.9;
-    }
-
-    .council-bio-link:hover,
-    .council-bio-link:focus-visible {
-      color: #ffffff;
-      border-bottom-color: rgba(243, 213, 161, 0.9);
-      text-decoration: none;
-    }
-
-    .council-card:hover .council-image-placeholder,
-    .council-card:focus-within .council-image-placeholder {
-      transform: translateY(-4px) scale(1.03);
-      box-shadow:
-        0 16px 36px rgba(0, 0, 0, 1),
-        0 0 20px rgba(243, 213, 161, 0.6);
-      filter: grayscale(0);
-      border-color: rgba(243, 213, 161, 0.9);
-    }
-
-    .council-card:hover .council-name-main,
-    .council-card:focus-within .council-name-main,
-    .council-card:hover .council-name-role,
-    .council-card:focus-within .council-name-role {
-      color: var(--accent-soft);
-    }
-
-    .council-card:hover .council-name-main,
-    .council-card:focus-within .council-name-main {
-      letter-spacing: 0.2em;
-    }
-
-    /* Fullscreen image lightbox */
-    .image-lightbox {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      display: none;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .image-lightbox.is-visible {
-      display: flex;
-    }
-
-    .image-lightbox-backdrop {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.95), #020308);
-      opacity: 0.96;
-    }
-
-    .image-lightbox-content {
-      position: relative;
-      max-width: 96vw;
-      max-height: 90vh;
-      margin: 0;
-      padding: 0.75rem 0.75rem 1rem;
-      border-radius: 1rem;
-      border: 1px solid rgba(242, 209, 145, 0.4);
-      background:
-        radial-gradient(circle at 0 0, rgba(243, 213, 161, 0.25), transparent 60%),
-        radial-gradient(circle at 100% 100%, rgba(184, 75, 60, 0.3), transparent 60%),
-        #050608;
-      box-shadow:
-        0 24px 60px rgba(0, 0, 0, 0.95),
-        0 0 32px rgba(194, 143, 63, 0.8);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.6rem;
-      box-sizing: border-box;
-    }
-
-    .image-lightbox-content img {
-      max-width: 100%;
-      max-height: 76vh;
-      border-radius: 0.75rem;
-      border: 1px solid rgba(242, 209, 145, 0.4);
-      box-shadow:
-        0 18px 50px rgba(0, 0, 0, 1),
-        0 0 24px rgba(243, 213, 161, 0.55);
-      display: block;
-    }
-
-    .image-lightbox-caption {
-      font-size: 0.8rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      text-align: center;
-    }
-
-    .image-lightbox-close {
-      position: absolute;
-      top: 0.3rem;
-      right: 0.6rem;
-      border: none;
-      background: transparent;
-      color: var(--accent-soft);
-      font-size: 1.6rem;
-      cursor: pointer;
-      line-height: 1;
-    }
-
-    .image-lightbox-close:hover,
-    .image-lightbox-close:focus-visible {
-      color: #ffffff;
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 960px) {
-      .hero-slider {
-        height: 420px;
-      }
-
-      #aetherforge-council-of-8 {
-        padding: 1.8rem 1.3rem 2.2rem;
-      }
-
-      .council-layout {
-        grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.2fr);
-        gap: 2rem;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .hero-slider {
-        height: 360px;
-        margin: 1rem auto 1.5rem;
-      }
-
-      .hero-slide {
-        padding: 1.75rem 1.4rem;
-      }
-
-      .hero-title {
-        font-size: 1.6rem;
-      }
-
-      .council-layout {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      .council-portraits {
-        margin-top: 1.5rem;
-      }
-
-      .council-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 640px) {
-      .shell,
-      #aetherforge-council-of-8 {
-        padding-inline: 1.1rem;
-      }
-    }
-
-    @media (max-width: 520px) {
-      .hero {
-        padding: 1rem;
-      }
-
-      .hero-slider {
-        height: 320px;
-      }
-
-      .hero-title {
-        font-size: 1.35rem;
-      }
-
-      .hero-meta {
-        font-size: 0.7rem;
-      }
-
-      .council-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-  </style>
+  <meta name="theme-color" content="#050608">
+  <link rel="stylesheet" href="site.css">
 </head>
 <body>
   
   <header>
     <div class="shell top-bar">
-      <div class="brand">
+      <a href="index.html" class="brand">
         <div class="brand-icon" aria-hidden="true"></div>
         <div class="brand-text">
           <div class="brand-name">AetherForge Hub</div>
           <div class="brand-sub">Steampunk Science Fiction Universe</div>
         </div>
-      </div>
+      </a>
 
       <!-- Responsive menu bar -->
       <nav class="main-nav" aria-label="Main navigation">
@@ -884,12 +39,12 @@
             </a>
             <ul class="dropdown-menu">
               <li>
-                <a href="aetherforge_council_of_8.html" target="_blank" rel="noopener noreferrer">
+                <a href="aetherforge_council_of_8.html">
                   AetherForge Council of 8
                 </a>
               </li>
               <li>
-                <a href="steampunk_stardate_calculator.html" target="_blank" rel="noopener noreferrer">
+                <a href="steampunk_stardate_calculator.html">
                   Steampunk Stardate Generator
                 </a>
               </li>
@@ -904,7 +59,7 @@
             </a>
             <ul class="dropdown-menu">
               <li>
-                <a href="peregrine_plasma_rifle.html" target="_blank" rel="noopener noreferrer">
+                <a href="peregrine_plasma_rifle.html">
                   HMR-9 "Peregrine" Field Manual
                 </a>
               </li>
@@ -916,26 +71,8 @@
             </ul>
           </li>
 
-          <!-- Contact Us -->
-          <li class="nav-item dropdown">
-            <a href="#" class="nav-link">
-              Contact Us
-              <span class="caret">▾</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li>
-                <a href="#"
-                   title="General questions form placeholder">
-                  General Questions Form
-                </a>
-              </li>
-              <li>
-                <a href="#"
-                   title="Site bug report form placeholder">
-                  Site Buggy Form
-                </a>
-              </li>
-            </ul>
+          <li class="nav-item">
+            <a href="contact.html" class="nav-link">Contact Us</a>
           </li>
         </ul>
       </nav>
@@ -951,7 +88,9 @@
           <img
             src="images/headers/00_aetherforge_council_8_header.png"
             alt="AetherForge worldbuilding banner"
-            class="hero-banner-image">
+            class="hero-banner-image"
+            width="1200" height="600"
+            fetchpriority="high">
         </div>
       </div>
     </section>
@@ -1000,7 +139,7 @@
                 src="images/headshots/01_dr_caelan_aetherforge_8_800x1067.png"
                 alt="Dr. Caelan Rhys Mercer"
                 title="Dr. Caelan Rhys Mercer"
-                class="council-image-placeholder"
+                class="council-image-placeholder" loading="lazy"
                 data-role="Hard SF Worldbuilding Engineer"
               />
               <div class="council-name">
@@ -1023,7 +162,7 @@
                 src="images/headshots/02_amara_aetherforge_8_800x1067.png"
                 alt="Amara Lian Okafor"
                 title="Amara Lian Okafor"
-                class="council-image-placeholder"
+                class="council-image-placeholder" loading="lazy"
                 data-role="Lore &amp; History Cartographer"
               />
               <div class="council-name">
@@ -1047,7 +186,7 @@
                 src="images/headshots/03_rafael_aetherforge_8_800x1067.png"
                 alt="Rafael Íñigo Duarte"
                 title="Rafael Íñigo Duarte"
-                class="council-image-placeholder"
+                class="council-image-placeholder" loading="lazy"
                 data-role="Temporal Strategist"
               />
               <div class="council-name">
@@ -1071,7 +210,7 @@
                 src="images/headshots/04_dr_sienna_aetherforge_8_800x1067.png"
                 alt="Dr. Sienna Myles Armitage"
                 title="Dr. Sienna Myles Armitage"
-                class="council-image-placeholder"
+                class="council-image-placeholder" loading="lazy"
                 data-role="Aether Systems Alchemist"
               />
               <div class="council-name">
@@ -1095,7 +234,7 @@
                 src="images/headshots/05_gideon_aetherforge_8_800x1067.png"
                 alt="Gideon Thane Blackwell"
                 title="Gideon Thane Blackwell"
-                class="council-image-placeholder"
+                class="council-image-placeholder" loading="lazy"
                 data-role="Character Psychology Architect"
               />
               <div class="council-name">
@@ -1119,7 +258,7 @@
                 src="images/headshots/06_leyla_aetherforge_8_800x1067.png"
                 alt="Leyla Ferah Altun"
                 title="Leyla Ferah Altun"
-                class="council-image-placeholder"
+                class="council-image-placeholder" loading="lazy"
                 data-role="Conflict &amp; War Theorist"
               />
               <div class="council-name">
@@ -1143,7 +282,7 @@
                 src="images/headshots/07_arata_aetherforge_8_800x1067.png"
                 alt="Arata Kenjiro Sato"
                 title="Arata Kenjiro Sato"
-                class="council-image-placeholder"
+                class="council-image-placeholder" loading="lazy"
                 data-role="Socio-Political Futurist"
               />
               <div class="council-name">
@@ -1167,7 +306,7 @@
                 src="images/headshots/08_seraphine_aetherforge_8_800x1067.png"
                 alt="Seraphine Elowen Marcell"
                 title="Seraphine Elowen Marcell"
-                class="council-image-placeholder"
+                class="council-image-placeholder" loading="lazy"
                 data-role="Myth &amp; Symbolism Curator"
               />
               <div class="council-name">
@@ -1193,13 +332,13 @@
   <footer>
     <div class="footer-inner">
       <div class="footer-copy">
-        AetherForge Council of 8 • Steampunk science fiction writers’ think tank, personas, and worldbuilding lab.
+        AetherForge Worldbuilding Hub &bull; Steampunk science fiction universe operations and narrative infrastructure.
       </div>
       <nav class="footer-links" aria-label="Footer links">
         <a href="#">Downloads</a>
-        <span class="footer-sep">•</span>
+        <span class="footer-sep">&bull;</span>
         <a href="#">Privacy Policy</a>
-        <span class="footer-sep">•</span>
+        <span class="footer-sep">&bull;</span>
         <a href="#">Terms</a>
       </nav>
     </div>
