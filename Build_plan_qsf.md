@@ -159,3 +159,64 @@ Replace the current placeholder body text (generic hub description) with a more 
 **5. Moved CSS to `assets/css/`**
 - Relocated `site.css` → `assets/css/site.css`
 - Updated `<link rel="stylesheet">` in all 5 HTML pages to reference `assets/css/site.css`
+
+**6. Council of 8 — Individual Bio Pages (2026-04-10)**
+- Created `gpt_council_8/` folder structure for council member pages
+- Created 8 individual bio pages, each with:
+  - Same header/nav/footer/CSS/JS as the main council page
+  - Member headshot portrait
+  - One-line tagline
+  - **Signature Profile** — role description, specialties, traits, "known for"
+  - **Full Backstory** — extended narrative origin story
+  - "Back to Council of 8" breadcrumb navigation
+- Pages created:
+  - `gpt_council_8/caelan-rhys-mercer.html` — Hard SF Worldbuilding Engineer
+  - `gpt_council_8/amara-lian-okafor.html` — Lore & History Cartographer
+  - `gpt_council_8/rafael-inigo-duarte.html` — Political/Espionage Temporal Strategist
+  - `gpt_council_8/sienna-myles-armitage.html` — Aether Systems Alchemist
+  - `gpt_council_8/gideon-thane-blackwell.html` — Character Psychology Architect
+  - `gpt_council_8/leyla-ferah-altun.html` — Conflict & War Theorist
+  - `gpt_council_8/arata-kenjiro-sato.html` — Socio-Political Futurist
+  - `gpt_council_8/seraphine-elowen-marcell.html` — Myth & Symbolism Curator
+- Content merged from `council_8_backstories.md`:
+  - Signature Profiles (lines 49–164)
+  - Full Backstories (lines 200–305)
+- Added **Section 14: Council Bio Pages** to `assets/css/site.css`:
+  - `.council-bio-page` container layout
+  - `.bio-header` flex layout with portrait + name/role/tagline
+  - `.bio-portrait` styled with border glow and shadow
+  - `.bio-section` content sections with gold divider borders
+  - `.bio-traits` highlighted panel with brass accent background
+  - `.bio-breadcrumb` back-navigation link
+  - Responsive: stacks portrait/text vertically on mobile (≤720px)
+- All 8 "Read Bio" links on `aetherforge_council_of_8.html` now resolve to working pages
+
+## File Inventory
+
+### Root Pages
+- `index.html` — Homepage with feature cards
+- `contact.html` — Contact form
+- `steampunk_stardate_calculator.html` — Stardate tool
+- `peregrine_plasma_rifle.html` — HMR-9 field manual
+
+### Council of 8 (`gpt_council_8/`)
+- `aetherforge_council_of_8.html` — Main council page with 8 headshot cards
+- `caelan-rhys-mercer.html` — Dr. Caelan Rhys Mercer bio
+- `amara-lian-okafor.html` — Amara Lian Okafor bio
+- `rafael-inigo-duarte.html` — Rafael Íñigo Duarte bio
+- `sienna-myles-armitage.html` — Dr. Sienna Myles Armitage bio
+- `gideon-thane-blackwell.html` — Gideon Thane Blackwell bio
+- `leyla-ferah-altun.html` — Leyla Ferah Altun bio
+- `arata-kenjiro-sato.html` — Arata Kenjiro Sato bio
+- `seraphine-elowen-marcell.html` — Seraphine Elowen Marcell bio
+- `council_8_backstories.md` — Source content for all profiles and backstories
+
+### Assets
+- `assets/css/site.css` — Unified stylesheet (14 sections)
+
+### Recallos (`recallos/`)
+- `index.html` — Recallos AI Memory landing
+- `benefits.html` — Benefits page
+- `css/styles.css` — Recallos-specific styles
+- `js/main.js` — Recallos scripts
+- `errors/` — 400, 401, 403, 404, 500, 503 error pages
