@@ -7,7 +7,7 @@
   <meta name="description"
         content="AetherForge Worldbuilding Hub for a steampunk science fiction universe: worldbuilding notes, tools, and narrative infrastructure.">
   <meta name="theme-color" content="#050608">
-  <link rel="stylesheet" href="site.css">
+  <link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
   <header>
@@ -20,7 +20,6 @@
         </div>
       </a>
 
-      <!-- Responsive menu bar -->
       <nav class="main-nav" aria-label="Main navigation">
         <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Toggle navigation menu">
         <label for="nav-toggle" class="nav-toggle-label">
@@ -30,52 +29,28 @@
         </label>
 
         <ul class="nav-list">
-          <!-- AetherForge Tools -->
           <li class="nav-item dropdown">
-            <a href="#" class="nav-link">
-              AetherForge Tools
-              <span class="caret">▾</span>
-            </a>
+            <a href="#" class="nav-link">Aetherforge AI Tools <span class="caret">&#9662;</span></a>
             <ul class="dropdown-menu">
-              <li>
-                <a href="aetherforge_council_of_8.html">
-                  AetherForge Council of 8
-                </a>
-              </li>
-              <li>
-                <a href="steampunk_stardate_calculator.html">
-                  Steampunk Stardate Generator
-                </a>
-              </li>
+              <li><a href="https://quantumstoryforge.io/recallos/" target="_blank" rel="noopener noreferrer">Aetherforge AI Memory</a></li>
+              <li><a href="aetherforge_council_of_8.html">Aetherforge Council of 8</a></li>
             </ul>
           </li>
-
-          <!-- WorldBuilding Extras -->
           <li class="nav-item dropdown">
-            <a href="#" class="nav-link">
-              WorldBuilding Extras
-              <span class="caret">▾</span>
-            </a>
+            <a href="#" class="nav-link">Worldbuilding Extras <span class="caret">&#9662;</span></a>
             <ul class="dropdown-menu">
-              <li>
-                <a href="peregrine_plasma_rifle.html">
-                  HMR-9 "Peregrine" Field Manual
-                </a>
-              </li>
-              <li>
-                <a href="https://qdls.io/" target="_blank" rel="noopener noreferrer">
-                  QuantumDrive Forge Tree
-                </a>
-              </li>
+              <li><a href="steampunk_stardate_calculator.html">Steampunk Stardate Generator</a></li>
+              <li><a href="peregrine_plasma_rifle.html">HMR-9 Peregrine Field Manual</a></li>
             </ul>
           </li>
-
+          <li class="nav-item">
+            <a href="https://qdls.io/" class="nav-link" target="_blank" rel="noopener noreferrer">QD Forge Tree</a>
+          </li>
           <li class="nav-item">
             <a href="contact.html" class="nav-link">Contact Us</a>
           </li>
         </ul>
       </nav>
-      <!-- End menu bar -->
     </div>
   </header>
 
@@ -99,33 +74,57 @@
     <section id="worldbuilding-hub">
       <h2>AetherForge Worldbuilding Hub</h2>
       <p>
-        This hub serves as the primary staging area for your steampunk science fiction universe.
-        It’s where timelines, factions, technologies, and story engines are organized into a single,
-        navigable control surface you can keep open while you write, sketch, or plan.
+        The operational dashboard for your steampunk science fiction universe.
+        Timelines, factions, technologies, and story engines &mdash; organized into one
+        navigable control surface.
       </p>
 
-      <h3>Universe Operations Layer</h3>
-      <p>
-        Instead of burying key information across scattered notebooks and files, the AetherForge Hub
-        centralizes the spine of your world: major eras, anchor locations, signature technologies,
-        and recurring character threads. You can link out to deep-dive documents, calculators, and
-        tactical tools while this page remains the high-level dashboard.
-      </p>
+      <div class="feature-cards">
+        <a href="https://quantumstoryforge.io/recallos/" target="_blank" rel="noopener noreferrer" class="feature-card">
+          <div class="feature-card-icon">⚙</div>
+          <div class="feature-card-title">Aetherforge AI Memory</div>
+          <div class="feature-card-desc">
+            Persistent AI memory engine &mdash; your narrative context, retained across sessions and ready when you are.
+          </div>
+          <div class="feature-card-arrow">Launch Tool &rarr;</div>
+        </a>
 
-      <h3>Tools, Docs, and External Systems</h3>
-      <p>
-        Use this page to link directly into supporting modules such as the AetherForge Council of 8,
-        specialized calculators, starship or weapon manuals, and any other narrative infrastructure
-        you are building. Each linked tool can live on its own dedicated page while the Hub ties them
-        into a coherent operational map.
-      </p>
+        <a href="aetherforge_council_of_8.html" class="feature-card">
+          <div class="feature-card-icon">✦</div>
+          <div class="feature-card-title">Aetherforge Council of 8</div>
+          <div class="feature-card-desc">
+            A steampunk writers' think tank powered by 8 specialized AI personas, each a different genre author with unique skills.
+          </div>
+          <div class="feature-card-arrow">Meet the Council &rarr;</div>
+        </a>
 
-      <h3>Designed for Long-Arc Projects</h3>
-      <p>
-        The styling, color palette, and layout are tuned for long-form reading sessions and frequent
-        reference checks. Dark backgrounds, brass-and-amber accents, and subtle gradients echo the
-        steampunk tone without sacrificing clarity or readability on modern displays.
-      </p>
+        <a href="steampunk_stardate_calculator.html" class="feature-card">
+          <div class="feature-card-icon">⌚</div>
+          <div class="feature-card-title">Steampunk Stardate Generator</div>
+          <div class="feature-card-desc">
+            Chronometric Guild date system for your fiction. Generate, advance, and copy stardates with a single click.
+          </div>
+          <div class="feature-card-arrow">Open Generator &rarr;</div>
+        </a>
+
+        <a href="peregrine_plasma_rifle.html" class="feature-card">
+          <div class="feature-card-icon">⚡</div>
+          <div class="feature-card-title">HMR-9 Peregrine Field Manual</div>
+          <div class="feature-card-desc">
+            Squad-level shield-piercing rifle with Type-VI Hardened Learning magazines. Full tactical reference.
+          </div>
+          <div class="feature-card-arrow">Read Manual &rarr;</div>
+        </a>
+
+        <a href="https://qdls.io/" target="_blank" rel="noopener noreferrer" class="feature-card">
+          <div class="feature-card-icon">⬡</div>
+          <div class="feature-card-title">QD Forge Tree</div>
+          <div class="feature-card-desc">
+            QuantumDrive tech tree &mdash; visual map of the fictional technology ecosystem and its branching paths.
+          </div>
+          <div class="feature-card-arrow">Explore &rarr;</div>
+        </a>
+      </div>
     </section>
   </main>
 
